@@ -1,0 +1,13 @@
+    /**
+     * 1.问题设置android SDK的编译版本为23时，且使用了httpClient相关类的库项目：如android-async-http等等，会出现有一些类找不到的错误。
+     * 2.原因:android 6.0(api 23) SDK，不再提供org.apache.http.*(只保留几个类).
+     * 3.解决办法:
+     * libs中加入  org.apache.http.legacy.jar
+     * 上面的jar包在：**\android-sdk-windows\platforms\android-23\optional下（需要下载android 6.0的SDK）
+     * android studio:
+     * 在相应的module下的build.gradle中加入：
+     *   android {
+     *     useLibrary 'org.apache.http.legacy'
+     *   }
+     *   原文:http://blog.csdn.net/yangqingqo/article/details/48214865
+     */

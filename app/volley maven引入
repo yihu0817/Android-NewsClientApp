@@ -1,0 +1,9 @@
+Volley介绍 ：http://www.android100.org/html/201508/27/177156.html
+
+volley maven库地址  :http://mvnrepository.com/artifact/com.mcxiaoke.volley/library
+
+dependencies {
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+}
+
+https://github.com/mcxiaoke/android-volley

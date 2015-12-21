@@ -1,0 +1,14 @@
+<resources>
+
+    <string name="app_name">今日新闻</string>
+    <string name="listpage_footer_text">加载中...</string>
+    <string name="main_news_title">新闻快讯</string>
+
+    <string name="web_news_title">新闻详情</string>
+    <string name="news_content_url">"http://c.m.163.com/nc/article/%1$s/full.html"</string>
+    <string name="news_content_source">"来源:%1$s  %2$s"</string>
+    <string name="news_content_count">"共%1$s张"</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

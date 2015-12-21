@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp" >
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/read_news_show_pic"
+        android:layout_width="80dp"
+        android:layout_height="58dp"
+        android:layout_margin="5dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/base_article_bigimage" />
+
+    <TextView
+        android:id="@+id/read_news_show_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/read_news_show_pic"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="27岁女孩出任上市公司董事长"
+        android:textSize="@dimen/fragment_news_list_title_size" />
+
+    <TextView
+        android:id="@+id/read_news_show_digest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/read_news_show_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_toRightOf="@id/read_news_show_pic"
+        android:singleLine="false"
+        android:text="继承父业任闰土股份董事长，成A股最年轻女董事长。"
+        android:textSize="@dimen/fragment_news_list_content_size"
+        android:textColor="@android:color/darker_gray"/>
+
+</RelativeLayout>

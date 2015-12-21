@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+    defaultConfig {
+        applicationId "com.warmtel.news"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    //签名
+    signingConfigs {
+        ittx_release {
+            keyAlias 'scxh'
+            keyPassword '123456'
+            storeFile file('F:/learn/scxh_apk_Keystorey/ittx.keystore.jks')
+            storePassword '123456'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            signingConfig signingConfigs.ittx_release
+        }
+
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile project(':Android-Volley-library')
+    //compile(name: 'Android-ImageCaches-library-release', ext: 'aar')
+    compile(name: 'Android-XListView-library-debug', ext: 'aar')
+    compile 'com.android.support:support-v4:23.1.1'
+    compile project(':Android-imageSlider-viktor-library')
+}

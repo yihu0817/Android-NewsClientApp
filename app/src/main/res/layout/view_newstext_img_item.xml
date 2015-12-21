@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp" >
+       
+    <TextView
+        android:id="@+id/read_news_img_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="27岁女孩出任上市公司董事长"
+        android:textSize="14sp" />
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/read_news_img_pic1"
+        android:layout_below="@id/read_news_img_title"
+        android:layout_marginTop="5dp"
+        android:layout_width="80dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="10dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/base_article_bigimage" />
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/read_news_img_pic2"
+        android:layout_width="80dp"
+        android:layout_height="58dp"
+        android:contentDescription="@null"
+        android:layout_alignBottom="@id/read_news_img_pic1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/base_article_bigimage" />
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/read_news_img_pic3"
+        android:layout_width="80dp"
+        android:layout_height="58dp"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:layout_alignBottom="@id/read_news_img_pic2"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/base_article_bigimage" />
+</RelativeLayout>
