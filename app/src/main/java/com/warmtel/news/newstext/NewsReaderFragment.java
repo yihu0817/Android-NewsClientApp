@@ -5,7 +5,6 @@
 package com.warmtel.news.newstext;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,8 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyErrorHelper;
@@ -31,11 +28,14 @@ import com.scxh.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import com.scxh.slider.library.SliderTypes.TextSliderView;
 import com.warmtel.android.xlistview.XListView;
 import com.warmtel.android.xlistview.XListView.IXListViewListener;
+import com.warmtel.imagecache.httpcache.HttpConnectionUtils;
 import com.warmtel.news.R;
 import com.warmtel.news.RequestManager;
 import com.warmtel.news.bean.NewsTextBean;
 import com.warmtel.news.utils.Constans;
 import com.warmtel.news.utils.Logs;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +64,7 @@ public class NewsReaderFragment extends Fragment implements IXListViewListener,
     public static NewsReaderFragment newInstance(int newsType) {
         NewsReaderFragment readnewsFrag = new NewsReaderFragment();
         Bundle args = new Bundle();
+        Logs.e("newsType :"+newsType);
         args.putInt(NEWS_TYPE, newsType);
         readnewsFrag.setArguments(args);
 
@@ -147,6 +148,8 @@ public class NewsReaderFragment extends Fragment implements IXListViewListener,
         }
     }
 
+
+
     /**
      * @param currentPage 页号
      * @param pageSize    页大小
@@ -158,7 +161,14 @@ public class NewsReaderFragment extends Fragment implements IXListViewListener,
 
                     @Override
                     public void onResponse(String response) {
-                        List<NewsTextBean> readList = parseNewsJson(response, mNewsKeys[mNewsType]);
+
+                        Logs.e("onResponse >>>"+response);
+                        List<NewsTextBean> readList = null;
+                        try {
+                            readList = parseNewsJson(response, mNewsKeys[mNewsType]);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
                         mListView.stopRefresh();
                         mListView.setRefreshTime("刚刚");
@@ -233,25 +243,24 @@ public class NewsReaderFragment extends Fragment implements IXListViewListener,
      * @param newsKey
      * @return
      */
-    public List<NewsTextBean> parseNewsJson(String response, String newsKey) {
+    public List<NewsTextBean> parseNewsJson(String response, String newsKey) throws JSONException {
         List<NewsTextBean> newsLists = new ArrayList<NewsTextBean>();
+        org.json.JSONObject rootObj = new org.json.JSONObject(response);
 
-        JSONObject rootObj = JSONObject.parseObject(response);
-
-        JSONArray newsArrayObj = rootObj.getJSONArray(newsKey);
-        for (int i = 1; i < newsArrayObj.size() - 1; i++) {
-            JSONObject newsObj = newsArrayObj.getJSONObject(i);
+        org.json.JSONArray newsArrayObj = rootObj.getJSONArray(newsKey);
+        for (int i = 1; i < newsArrayObj.length() - 1; i++) {
+            org.json.JSONObject newsObj = newsArrayObj.getJSONObject(i);
             String digest = newsObj.getString("digest");
             String title = newsObj.getString("title");
             String showPic = newsObj.getString("imgsrc");
             String docId = newsObj.getString("docid");
 
             List<String> imgArrayList = new ArrayList<String>();
-            if (newsObj.containsKey("imgextra")) {
-                JSONArray imgArray = newsObj.getJSONArray("imgextra");
-                if (imgArray != null && imgArray.size() > 0) {
-                    for (int k = 0; k < imgArray.size(); k++) {
-                        JSONObject obj0 = (JSONObject) imgArray.getJSONObject(k);
+            if (newsObj.has("imgextra")) {
+                org.json.JSONArray imgArray = newsObj.getJSONArray("imgextra");
+                if (imgArray != null && imgArray.length() > 0) {
+                    for (int k = 0; k < imgArray.length(); k++) {
+                        org.json.JSONObject obj0 = (org.json.JSONObject) imgArray.getJSONObject(k);
                         imgArrayList.add(obj0.getString("imgsrc"));
                     }
                 }

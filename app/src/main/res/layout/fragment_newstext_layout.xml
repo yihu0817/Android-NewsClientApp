@@ -17,10 +17,13 @@
 
         <ProgressBar
             android:id="@+id/listpage_progressbar"
-            style="?android:attr/progressBarStyleInverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
+            android:paddingLeft="30dp"
+            android:minWidth="250dp"
+            android:minHeight="250dp"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@anim/progress_circle_loading_anim" />
 
         <TextView
             android:layout_width="wrap_content"

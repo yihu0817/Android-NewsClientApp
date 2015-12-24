@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +44,8 @@ public class NewsContentActivity extends Activity {
     public static final String DOC_ID = "DOC_ID";
     private TitleBar mTitleBar;
     private TextView mNewsTitleTxt, mNewsSourceTxt, mNewsCount, mNewsContentTxt;
-    private ImageView mNewsImg, mLoadImg;
+    private ImageView mNewsImg;
+    private ProgressBar mLoadBar;
     private RelativeLayout mLoadLayout;
     private int mShortAnimationDuration = 1000;
     private String mNewsContentTitle; //用于图片浏览界面
@@ -66,7 +68,7 @@ public class NewsContentActivity extends Activity {
         mNewsCount = (TextView) findViewById(R.id.web_news_img_count);
         mNewsContentTxt = (TextView) findViewById(R.id.web_news_infoTxt);
         mNewsImg = (ImageView) findViewById(R.id.web_news_img);
-        mLoadImg = (ImageView) findViewById(R.id.web_news_load_img);
+        mLoadBar = (ProgressBar) findViewById(R.id.web_news_load_img);
         mLoadLayout = (RelativeLayout) findViewById(R.id.web_news_load_layout);
 
         mTitleBar.registOnClickListener(new View.OnClickListener() {
@@ -83,11 +85,11 @@ public class NewsContentActivity extends Activity {
         mNewsImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewsImageActivity.onStartActivityAction(NewsContentActivity.this,mNewsContentTitle,mNewsImageLists);
+                NewsImageActivity.onStartActivityAction(NewsContentActivity.this, mNewsContentTitle, mNewsImageLists);
             }
         });
 
-        setLoadImgAnim();
+//        setLoadImgAnim();
         getNewsContentData();
     }
 
@@ -96,7 +98,7 @@ public class NewsContentActivity extends Activity {
      */
     public void setLoadImgAnim() {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.news_info_load_rorate);
-        mLoadImg.startAnimation(animation);
+        mLoadBar.startAnimation(animation);
     }
 
     /**
@@ -212,7 +214,7 @@ public class NewsContentActivity extends Activity {
         mNewsContentTitle = newsContent.getTitle();
         mNewsImageLists = (ArrayList<NewsImageBean>) newsContent.getImg();
 
-        mLoadLayout.setVisibility(View.GONE);
+
         mNewsTitleTxt.setText(newsContent.getTitle());
         mNewsSourceTxt.setText(String.format(getString(R.string.news_content_source), newsContent.getSource(), newsContent.getPtime()));
         if ((newsContent.getPicUrl()) != null) {
@@ -224,8 +226,9 @@ public class NewsContentActivity extends Activity {
             mNewsImg.setVisibility(View.GONE);
             mNewsCount.setVisibility(View.GONE);
         }
+//        mLoadLayout.setVisibility(View.GONE);
         mNewsContentTxt.setText(Html.fromHtml(newsContent.getBody()));
-//        crossfade();
+        crossfade();
     }
 
     /**
@@ -241,8 +244,7 @@ public class NewsContentActivity extends Activity {
         // 开始动画内容View到100%的不透明度，然后清除所有设置在View上的动画监听器。
         mNewsContentTxt.animate()
                 .alpha(1f)
-                .setDuration(mShortAnimationDuration)
-                .setListener(null);
+                .setDuration(mShortAnimationDuration);
 
         // 加载View开始动画逐渐变为0%的不透明度，
         // 动画结束后，设置可见性为GONE（消失）作为一个优化步骤

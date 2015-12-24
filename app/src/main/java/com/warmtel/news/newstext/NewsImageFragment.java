@@ -100,4 +100,5 @@ public class NewsImageFragment extends Fragment {
         mContentTxt.setText(mTextContent);
         mPageTxt.setText((Integer.parseInt(mCurrentPage) + 1) + "/" + mTotalPage);
     }
+
 }
